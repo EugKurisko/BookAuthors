@@ -16,7 +16,7 @@ class m210725_092733_create_book_table extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string(64)->notNull(),
             'description' => $this->string(255)->defaultValue('Book description'),
-            'image' => $this->string(12)->notNull(),
+            'image' => $this->string(255)->notNull(),
             'publication_date' => $this->date()
         ], 'ENGINE=InnoDB');
     }

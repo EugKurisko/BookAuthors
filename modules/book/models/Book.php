@@ -3,7 +3,7 @@
 namespace modules\book\models;
 
 use Yii;
-use yii\db\ActiveQuery;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "{{%book}}".
@@ -18,6 +18,11 @@ use yii\db\ActiveQuery;
  */
 class Book extends \yii\db\ActiveRecord
 {
+    /**
+     * @var UploadedFile
+     */
+    public $imageFile;
+
     /**
      * {@inheritdoc}
      */
@@ -36,7 +41,7 @@ class Book extends \yii\db\ActiveRecord
             [['publication_date'], 'safe'],
             [['title'], 'string', 'max' => 64],
             [['description'], 'string', 'max' => 255],
-            [['image'], 'string', 'max' => 12],
+            ['image', 'file', 'maxSize'=> 1024 * 1024 * 2, 'extensions' => 'jpg, png']
         ];
     }
 
@@ -57,7 +62,7 @@ class Book extends \yii\db\ActiveRecord
     /**
      * Gets query for [[BookAuthors]].
      *
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getBookAuthors()
     {
