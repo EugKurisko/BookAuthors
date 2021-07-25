@@ -1,6 +1,9 @@
 <?php
 
+use modules\author\models\Author;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -13,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>--
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

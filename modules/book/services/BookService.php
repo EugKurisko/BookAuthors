@@ -14,7 +14,7 @@ use yii\web\UploadedFile;
 class BookService extends Model
 {
     /** @var Book  */
-    private $book;
+    private Book $book;
 
     /** @var BookAuthor[] */
     private $bookAuthors;
@@ -29,6 +29,7 @@ class BookService extends Model
     {
         parent::load($data, $formName);
         $this->book->load($data);
+//        dd($this->book);
 //        dd($data);
         $authorIds = ArrayHelper::getValue($data[$this->book->formName()], 'bookAuthors') ?: [];
 //        dd($authorIds);
@@ -37,10 +38,14 @@ class BookService extends Model
         {
             $model = new BookAuthor();
             $model->author_id = $authorId;
-            $this->book->imageFile = UploadedFile::getInstance($this->book, 'image');
+//            dd(UploadedFile::getInstance($this->book, 'image'));
+//            dd($this->book);
+
 //            dd($this->book->imageFile);
             $this->bookAuthors[] = $model;
         }
+        $this->book->imageFile = UploadedFile::getInstance($this->book, 'image');
+//        dd($this->book);
 //        dd($this->bookAuthors);
         return true;
     }
@@ -52,9 +57,10 @@ class BookService extends Model
         try
         {
 //            dd(1);
-//            dd($this->book->imageFile['name']);
-            $this->book->image = $this->book->imageFile->name;
 //            dd($this->book);
+//            dd($this->book->imageFile['name']);
+            $this->book->image = '46';//$this->book->imageFile->name;
+//dd(1);
             if(!$this->book->save())
             {
                 $trans->rollBack();

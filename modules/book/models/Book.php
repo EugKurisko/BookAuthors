@@ -41,7 +41,7 @@ class Book extends \yii\db\ActiveRecord
             [['publication_date'], 'safe'],
             [['title'], 'string', 'max' => 64],
             [['description'], 'string', 'max' => 255],
-            ['image', 'file', 'maxSize'=> 1024 * 1024 * 2, 'extensions' => 'jpg, png']
+            [['image'], 'file', 'maxSize'=> 1024 * 1024 * 2, 'extensions' => 'jpg, png']
         ];
     }
 

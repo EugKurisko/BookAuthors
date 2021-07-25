@@ -2,6 +2,7 @@
 
 namespace modules\author\controllers\backend;
 
+use modules\author\services\AuthorService;
 use Yii;
 use modules\author\models\Author;
 use modules\author\models\AuthorSearch;
@@ -37,10 +38,12 @@ class AuthorController extends Controller
     {
         $searchModel = new AuthorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new Author();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model
         ]);
     }
 
@@ -66,8 +69,18 @@ class AuthorController extends Controller
     {
         $model = new Author();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $data = Yii::$app->request->post();
+
+//        dd($data);
+
+        $author = new AuthorService($model);
+
+        if(!empty($data) && $author->load($data))
+        {
+            if($author->save())
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [

@@ -1,7 +1,9 @@
 <?php
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel modules\author\models\AuthorSearch */
@@ -14,9 +16,38 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Author', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php Modal::begin([
+        'toggleButton' =>
+            [
+                'label' => 'Create Author',
+                'id' => 'author-modal'
+            ],
+    ]); ?>
+
+    <?php $form = ActiveForm::begin(
+        [
+            'id' => 'AuthorModel',
+        ],
+    ); ?>
+
+    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>
+
+    <div class="form-group">
+        <button type="submit"
+                class="btn btn-success confirm-add-author"
+                id="author_save">
+            Create Author
+        </button>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+    <?php Modal::end(); ?>
+
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
