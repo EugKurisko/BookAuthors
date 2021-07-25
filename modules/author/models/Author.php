@@ -5,6 +5,7 @@ namespace modules\author\models;
 use modules\book\models\Book;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%author}}".
@@ -58,5 +59,11 @@ class Author extends ActiveRecord
     public function getBooks()
     {
         return $this->hasMany(Book::className(), ['author_id' => 'id']);
+    }
+
+    public static function getList()
+    {
+        return ArrayHelper::map(self::find()
+            ->all(), 'id', 'last_name');
     }
 }

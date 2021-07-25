@@ -10,7 +10,7 @@ class Author extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
-    public $controllerNamespace = 'app\modules\author\controllers';
+    public $controllerNamespace = 'modules\author\controllers';
 
     /**
      * {@inheritdoc}

@@ -10,7 +10,7 @@ class Book extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
-    public $controllerNamespace = 'app\modules\book\controllers';
+    public $controllerNamespace = 'modules\book\controllers';
 
     /**
      * {@inheritdoc}

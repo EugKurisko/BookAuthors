@@ -17,7 +17,7 @@ return [
             'controllerNamespace' => 'modules\book\controllers\backend',
             'viewPath' => '@views/book/backend',
         ],
-        'Author' => [
+        'author' => [
             'class' => 'modules\author\Author',
             'controllerNamespace' => 'modules\author\controllers\backend',
             'viewPath' => '@views/author/backend',

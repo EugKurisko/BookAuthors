@@ -2,8 +2,8 @@
 
 namespace modules\book\models;
 
-use modules\author\models\Author;
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "{{%book}}".
@@ -13,9 +13,8 @@ use Yii;
  * @property string|null $description
  * @property string $image
  * @property string|null $publication_date
- * @property int $author_id
  *
- * @property Author $author
+ * @property BookAuthor[] $bookAuthors
  */
 class Book extends \yii\db\ActiveRecord
 {
@@ -33,13 +32,11 @@ class Book extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'image', 'author_id'], 'required'],
+            [['title', 'image'], 'required'],
             [['publication_date'], 'safe'],
-            [['author_id'], 'integer'],
             [['title'], 'string', 'max' => 64],
             [['description'], 'string', 'max' => 255],
             [['image'], 'string', 'max' => 12],
-            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Author::className(), 'targetAttribute' => ['author_id' => 'id']],
         ];
     }
 
@@ -54,17 +51,16 @@ class Book extends \yii\db\ActiveRecord
             'description' => 'Description',
             'image' => 'Image',
             'publication_date' => 'Publication Date',
-            'author_id' => 'Author ID',
         ];
     }
 
     /**
-     * Gets query for [[Author]].
+     * Gets query for [[BookAuthors]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getAuthor()
+    public function getBookAuthors()
     {
-        return $this->hasOne(Author::className(), ['id' => 'author_id']);
+        return $this->hasMany(BookAuthor::className(), ['book_id' => 'id']);
     }
 }
