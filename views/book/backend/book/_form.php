@@ -1,7 +1,7 @@
 <?php
 
+use kartik\file\FileInput;
 use modules\author\models\Author;
-use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -11,9 +11,6 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="book-form">
-    <?php Modal::begin([
-        'toggleButton' => ['label' => 'click me'],
-    ]); ?>
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -21,15 +18,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'image')->fileInput(['id' => 'image_id']) ?>
+    <?= $form->field($model, 'image')->widget(FileInput::classname(), [
+
+        'options' => ['accept' => 'image/*', 'id' => 'image_id'],]) ?>
 
     <?= $form->field($model, 'publication_date')->textInput(['type' => 'date']); ?> ?>
 
     <?= $form->field($model, 'bookAuthors')->dropDownList(
-            Author::getList(),
-            [
-                    'multiple' => true
-            ]
+        Author::getList(),
+        [
+            'multiple' => true
+        ]
     )?>
 
     <div class="form-group">
@@ -37,24 +36,5 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php ActiveForm::end(); ?>
-    <?php Modal::end(); ?>
 
-</div>
-
-<div class="modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
 </div>
