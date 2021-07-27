@@ -15,8 +15,8 @@ class m210725_114527_book_auhtor_table extends Migration
         $this->createTable('{{%book_author}}',
         [
             'id' => $this->primaryKey(),
-            'book_id' => $this->integer(),
-            'author_id' => $this->integer()
+            'book_id' => $this->integer()->notNull(),
+            'author_id' => $this->integer()->notNull()
         ], 'ENGINE=InnoDB');
 
         $this->createIndex(

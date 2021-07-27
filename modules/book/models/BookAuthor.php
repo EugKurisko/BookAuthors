@@ -4,18 +4,20 @@ namespace modules\book\models;
 
 use modules\author\models\Author;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%book_author}}".
  *
  * @property int $id
- * @property int|null $book_id
- * @property int|null $author_id
+ * @property int $book_id
+ * @property int $author_id
  *
  * @property Author $author
  * @property Book $book
  */
-class BookAuthor extends \yii\db\ActiveRecord
+class BookAuthor extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -31,6 +33,7 @@ class BookAuthor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['book_id', 'author_id'], 'required'],
             [['book_id', 'author_id'], 'integer'],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Author::className(), 'targetAttribute' => ['author_id' => 'id']],
             [['book_id'], 'exist', 'skipOnError' => true, 'targetClass' => Book::className(), 'targetAttribute' => ['book_id' => 'id']],
@@ -52,7 +55,7 @@ class BookAuthor extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Author]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAuthor()
     {
@@ -62,7 +65,7 @@ class BookAuthor extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Book]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBook()
     {

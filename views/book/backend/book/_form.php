@@ -20,16 +20,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'image')->widget(FileInput::classname(), [
 
-        'options' => ['accept' => 'image/*', 'id' => 'image_id'],]) ?>
+        'options' => ['accept' => 'image/*', 'id' => 'image_id']]) ?>
 
-    <?= $form->field($model, 'publication_date')->textInput(['type' => 'date']); ?> ?>
+    <?= $form->field($model, 'publication_date')->textInput(['type' => 'date']); ?>
 
     <?= $form->field($model, 'bookAuthors')->dropDownList(
         Author::getList(),
         [
-            'multiple' => true
+            'multiple' => true,
+            'required'=>true
         ]
-    )?>
+    )->label('Author')?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

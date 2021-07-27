@@ -27,12 +27,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+//            'id',
             'title',
-            'description',
-            'image',
             'publication_date',
-
+//            'author',
+            [
+                    'label' => 'Author name',
+                    'attribute' => 'author_id',
+                    'value' => 'book_authors.last_name'
+//                    'value' => function($model){
+//                    $author = \modules\book\models\BookAuthor::find()->all();
+//                    return $author->author->first_name;
+//                    }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

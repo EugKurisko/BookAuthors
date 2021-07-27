@@ -3,7 +3,9 @@
 namespace modules\author\models;
 
 use modules\book\models\Book;
+use modules\book\models\BookAuthor;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -54,11 +56,16 @@ class Author extends ActiveRecord
     /**
      * Gets query for [[Books]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBooks()
     {
         return $this->hasMany(Book::className(), ['author_id' => 'id']);
+    }
+
+    public function getBookAuthors()
+    {
+        return $this->hasMany(BookAuthor::className(), ['author_id' => 'id']);
     }
 
     public static function getList()

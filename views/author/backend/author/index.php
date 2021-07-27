@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'toggleButton' =>
             [
                 'label' => 'Create Author',
-                'id' => 'author-modal'
+                'id' => 'author-modal',
+                'class' => 'btn btn-success'
             ],
     ]); ?>
 

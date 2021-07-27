@@ -6,6 +6,7 @@ use modules\book\services\BookService;
 use Yii;
 use modules\book\models\Book;
 use modules\book\models\BookSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,7 +39,13 @@ class BookController extends Controller
     {
         $searchModel = new BookSearch();
         $model = new Book();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $dataProvider = new ActiveDataProvider([
+           'query' => Book::find(),
+           'pagination' => [
+               'pageSize' => 15
+           ],
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -100,8 +107,16 @@ class BookController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $data = Yii::$app->request->post();
+
+        $book = new BookService($model);
+
+        if(!empty($data) && $book->load($data))
+        {
+            if($book->save())
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [

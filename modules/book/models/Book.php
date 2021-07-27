@@ -3,6 +3,7 @@
 namespace modules\book\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\web\UploadedFile;
 
 /**
@@ -62,7 +63,7 @@ class Book extends \yii\db\ActiveRecord
     /**
      * Gets query for [[BookAuthors]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBookAuthors()
     {
