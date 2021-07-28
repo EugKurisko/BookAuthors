@@ -11,6 +11,8 @@ use modules\book\models\Book;
  */
 class BookSearch extends Book
 {
+    public $name;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +20,7 @@ class BookSearch extends Book
     {
         return [
             [['id'], 'integer'],
-            [['title', 'description', 'image', 'publication_date'], 'safe'],
+            [['title', 'description', 'image', 'publication_date', 'name'], 'safe'],
         ];
     }
 
@@ -40,6 +42,7 @@ class BookSearch extends Book
      */
     public function search($params)
     {
+
         $query = Book::find();
 
         // add conditions that should always apply here
@@ -48,23 +51,46 @@ class BookSearch extends Book
             'query' => $query,
         ]);
 
-        $this->load($params);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'publication_date' => $this->publication_date,
+        $dataProvider->setSort([
+            'attributes' => [
+                'title',
+                'name' => [
+                    'asc' => ['name' => SORT_ASC],
+                    'desc' => ['name' => SORT_DESC],
+                    'label' => 'Author name'
+                ],
+            ]
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'image', $this->image]);
+//        if(!($this->load($params) && $this->validate())){
+//
+//        }
+
+        $query->joinWith([
+           'bookAuthors.author' => function ($q)
+           {
+               $q->andWhere('author.first_name LIKE "%' . $this->name . '%"');
+           }
+        ]);
+//        dd($this->name);
+//        dd($query);
+
+//        $this->load($params);
+
+//        if (!$this->validate()) {
+//            // uncomment the following line if you do not want to return any records when validation fails
+//            // $query->where('0=1');
+//            return $dataProvider;
+//        }
+
+        // grid filtering conditions
+//        $query->andFilterWhere([
+//            'id' => $this->id,
+//            'name' => $this->name,
+//        ]);
+//
+//        $query->andFilterWhere(['like', 'title', $this->title])
+//            ->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

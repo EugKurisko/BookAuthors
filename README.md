@@ -1,3 +1,9 @@
+1. git clone https://github.com/EugKurisko/BookAuthors.git
+2. configure db settings in common/config/main-local.php
+3. run command yii migrate
+4. open project in browser
+5. click on Admin Panel (navigation bar)
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">

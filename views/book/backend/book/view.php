@@ -14,7 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="book-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <div>
+        <img src="@backend/web/uploads/book/<?=$model->id?>.jpg" alt="">
+    </div>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [

@@ -26,19 +26,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-//            'id',
             'title',
-            'publication_date',
-//            'author',
             [
                     'label' => 'Author name',
-                    'attribute' => 'author_id',
-                    'value' => 'book_authors.last_name'
-//                    'value' => function($model){
-//                    $author = \modules\book\models\BookAuthor::find()->all();
-//                    return $author->author->first_name;
-//                    }
+                    'attribute' => 'name',
+                    'value' => function ($data)
+                    {
+                        $str = '';
+                        foreach ($data->bookAuthors as $key => $bookAuthor)
+                        {
+                            $str .= $bookAuthor->author->first_name . ', ';
+                        }
+                        return $str;
+                    }
             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
