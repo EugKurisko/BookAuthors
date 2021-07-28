@@ -62,15 +62,19 @@ class BookSearch extends Book
             ]
         ]);
 
-//        if(!($this->load($params) && $this->validate())){
-//
-//        }
+        if(!($this->load($params) && $this->validate())){
+            return $dataProvider;
+        }
 
         $query->joinWith([
            'bookAuthors.author' => function ($q)
            {
                $q->andWhere('author.first_name LIKE "%' . $this->name . '%"');
            }
+        ]);
+
+        $query->andFilterWhere([
+            'like', 'first_name', $this->name
         ]);
 
         return $dataProvider;
